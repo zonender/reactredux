@@ -1,11 +1,10 @@
 import webpack from 'webpack';
 import path from 'path';
-// import htmlWebpackPlugin from 'html-webpack-plugin';
+const htmlWebpackPlugin = require('html-webpack-plugin');
 
 export default {
   debug: true,
-  // devtool: 'inline-source-map',
-  devtool: 'cheap-module-eval-source-map',
+  devtool: 'inline-source-map',
   noInfo: false,
   entry: [
     'eventsource-polyfill', // necessary for hot reloading with IE
@@ -23,7 +22,10 @@ export default {
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin()
+    new webpack.NoErrorsPlugin(),
+    new htmlWebpackPlugin({
+      template: 'src/index.html' //if we do not specifiy a template, it will use the default one
+    })
   ],
   module: {
     loaders: [
